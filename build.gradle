@@ -1,0 +1,38 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.10.RELEASE'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+
+    // Spring actuator, log4j
+    compile("org.springframework.boot:spring-boot-starter-log4j2")
+    compile("org.springframework.boot:spring-boot-actuator")
+
+    // Camel and Solace
+    compile("org.apache.camel:camel-spring-boot-starter:2.21.0")
+    compile("org.apache.camel:camel-jms:2.21.0")
+    compile("com.solacesystems:sol-jcsmp:10.3.1")
+    compile("com.solacesystems:sol-jms:10.3.1")
+    compile fileTree(dir: 'lib' , include: '*.jar')
+
+    // ActiveMQ dependencies
+    compile("org.apache.activemq:activemq-core:5.7.0")
+    compile("org.apache.activemq:activemq-camel:5.7.0")
+
+    // RabbitMQ dependencies
+    compile("org.apache.camel:camel-rabbitmq:2.21.0")
+
+    // Testing
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile ("junit:junit")
+}
+
+configurations {
+    // We use log4j2; logback is spring's default so it needs to be excluded
+    all*.exclude module : 'logback-classic'
+}
